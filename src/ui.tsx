@@ -15,6 +15,12 @@ function App() {
         }
 
         if(event.data.pluginMessage.command === "copyText") {
+            if(!event.data.pluginMessage.apiKey) {
+                window.parent.postMessage({pluginMessage: {
+                    result: 'noKey',
+                    message: 'Please set API key'
+                }}, '*')
+            }
             setBytes(event.data.pluginMessage.bytes)
         }
 

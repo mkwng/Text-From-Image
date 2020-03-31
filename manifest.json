@@ -5,7 +5,8 @@
   "main": "dist/code.js",
   "ui": "dist/ui.html",
   "menu": [
-    {"name": "Set or Update API Key", "command": "setKey"},
-    {"name": "Copy Text from Image", "command": "copyText"}
+    {"name": "Copy Text from Image", "command": "copyText"},
+    {"separator": true},
+    {"name": "Set or Update API Key", "command": "setKey"}
   ]
 }

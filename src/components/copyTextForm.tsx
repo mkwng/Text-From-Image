@@ -3,6 +3,7 @@ const apiUrl = 'https://api.ocr.space/parse/image'
 
 function CopyTextForm(props) {
     const [isError, setIsError] = React.useState(false)
+    const [text, setText] = React.useState("")
 
     function Uint8ToString(u8a){
         var CHUNK_SZ = 0x8000;
@@ -22,6 +23,10 @@ function CopyTextForm(props) {
     request.responseType = 'json'
     request.onreadystatechange = function() {
         if (this.status == 403) {
+            window.parent.postMessage({pluginMessage: {
+                result: '403',
+                msg: 'Your API key may be incorrect. Check the key and try again'
+            }}, '*')
             setIsError(true)
         }
         if (this.readyState == 4 && this.status == 200) {
@@ -30,7 +35,8 @@ function CopyTextForm(props) {
     }
 
     request.open("POST", apiUrl);
-    request.setRequestHeader("apikey", props.key);
+    request.setRequestHeader("apikey", props.apiKey);
+    console.log(props.apiKey)
 
     request.send(data);
 
@@ -40,7 +46,13 @@ function CopyTextForm(props) {
             isError ? (
                 <>Error</>
             ) : (
-                <>Copy text form</>
+                <>
+                    <textarea
+                        value={text}
+                        onChange={e => setText(e.target.value)}
+                    >
+                    </textarea>
+                </>
             )
         }
         </>
