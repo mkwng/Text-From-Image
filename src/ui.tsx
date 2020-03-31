@@ -6,6 +6,8 @@ import CopyTextForm from './components/copyTextForm'
 function App() {
     const [didMount, setDidMount] = React.useState(false)
     const [editingKey, setEditingKey] = React.useState(false)
+    const [apiKey, setApiKey] = React.useState("")
+    const [bytes, setBytes] = React.useState()
 
     window.onmessage = async event => {
         if(event.data.pluginMessage.command === "setKey") {
@@ -13,8 +15,10 @@ function App() {
         }
 
         if(event.data.pluginMessage.command === "copyText") {
+            setBytes(event.data.pluginMessage.bytes)
         }
 
+        setApiKey(event.data.pluginMessage.apiKey)
         setDidMount(true)
     };
   
@@ -24,9 +28,9 @@ function App() {
         <>
         {
             editingKey ? (
-                <SetKeyForm />
+                <SetKeyForm apiKey={apiKey} />
             ) : (
-                <CopyTextForm />
+                <CopyTextForm apiKey={apiKey} bytes={bytes} />
             )
         }
         </>

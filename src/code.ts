@@ -11,7 +11,7 @@ switch(figma.command) {
       break
   }
   
-  figma.clientStorage.getAsync('apikey').then( response => {
+  figma.clientStorage.getAsync('ocrapikey').then( response => {
     console.log(response)
   });
   
@@ -19,7 +19,7 @@ switch(figma.command) {
     figma.showUI(__html__)
     figma.ui.postMessage({
       command: figma.command,
-      key: await figma.clientStorage.getAsync('apikey')
+      apiKey: await figma.clientStorage.getAsync('ocrapikey')
     })
   
     figma.ui.onmessage = async (msg) => {
@@ -38,7 +38,7 @@ switch(figma.command) {
         figma.ui.postMessage({
           command: figma.command,
           bytes: bytes,
-          key: await figma.clientStorage.getAsync('apikey')
+          apiKey: await figma.clientStorage.getAsync('ocrapikey')
         })
   
         figma.ui.onmessage = async (msg) => {

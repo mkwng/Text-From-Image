@@ -1,6 +1,8 @@
 import * as React from 'react'
 
-function SetKeyForm() {
+function SetKeyForm(props) {
+    const [apiKey, setApiKey] = React.useState(props.apiKey)
+
     return (
         <>
             Set key form
