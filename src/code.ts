@@ -1,5 +1,6 @@
 switch(figma.command) {
     case 'setKey':
+      setKey()
       break
     case 'copyText':
       if(figma.currentPage.selection.length > 1) {
