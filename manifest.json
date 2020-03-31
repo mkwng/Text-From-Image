@@ -1,0 +1,11 @@
+{
+  "name": "Text From Image",
+  "id": "825603645067095312",
+  "api": "1.0.0",
+  "main": "dist/src/plugin/code.js",
+  "ui": "dist/index.html",
+  "menu": [
+    {"name": "Set or Update API Key", "command": "setKey"},
+    {"name": "Copy Text from Image", "command": "copyText"}
+  ]
+}
