@@ -13,6 +13,7 @@ function SetKeyForm(props) {
 
     return (
         <>
+            <p>Obtain an API key from <a href="https://ocr.space/OCRAPI#free" target="_blank">ocr.space</a> and enter it here.</p>
             <form onSubmit={handleSubmit}>
                 <label>
                     API key:

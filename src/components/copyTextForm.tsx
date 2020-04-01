@@ -3,7 +3,7 @@ const apiUrl = 'https://api.ocr.space/parse/image'
 
 function CopyTextForm(props) {
     const [isError, setIsError] = React.useState(false)
-    const [text, setText] = React.useState("")
+    const textRef = React.useRef(null);
 
     function Uint8ToString(u8a){
         var CHUNK_SZ = 0x8000;
@@ -30,13 +30,15 @@ function CopyTextForm(props) {
             setIsError(true)
         }
         if (this.readyState == 4 && this.status == 200) {
-            window.parent.postMessage({pluginMessage: request.response}, '*')
+            textRef.current.value = request.response.ParsedResults[0].ParsedText
+            textRef.current.select()
+            document.execCommand("copy");
+            window.parent.postMessage({pluginMessage: {result: "done"} }, '*')
         }
     }
 
     request.open("POST", apiUrl);
     request.setRequestHeader("apikey", props.apiKey);
-    console.log(props.apiKey)
 
     request.send(data);
 
@@ -47,9 +49,9 @@ function CopyTextForm(props) {
                 <>Error</>
             ) : (
                 <>
-                    <textarea
-                        value={text}
-                        onChange={e => setText(e.target.value)}
+                    <textarea 
+                        defaultValue="Loading..."
+                        ref={textRef}
                     >
                     </textarea>
                 </>
