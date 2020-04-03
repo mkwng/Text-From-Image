@@ -36,7 +36,10 @@ async function copyText(node) {
       const image = figma.getImageByHash(paint.imageHash)
       const bytes = await image.getBytesAsync()
 
-      figma.showUI(__html__)
+      figma.showUI(__html__, {
+        width: 0, 
+        height: 0
+      })
       figma.ui.postMessage({
         command: figma.command,
         bytes: bytes,

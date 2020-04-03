@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 const apiUrl = 'https://api.ocr.space/parse/image'
 
 function CopyTextForm(props) {
@@ -50,6 +51,10 @@ function CopyTextForm(props) {
             ) : (
                 <>
                     <textarea 
+                        style={{
+                            'opacity': 0,
+                            'pointerEvents': 'none'
+                        }}
                         defaultValue="Loading..."
                         ref={textRef}
                     >

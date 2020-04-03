@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import SetKeyForm from './components/setKeyForm'
 import CopyTextForm from './components/copyTextForm'
+import './ui.css'
 
 function App() {
     const [didMount, setDidMount] = React.useState(false)
