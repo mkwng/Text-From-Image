@@ -31,10 +31,14 @@ function CopyTextForm(props) {
             setIsError(true)
         }
         if (this.readyState == 4 && this.status == 200) {
-            textRef.current.value = request.response.ParsedResults[0].ParsedText
-            textRef.current.select()
-            document.execCommand("copy");
-            window.parent.postMessage({pluginMessage: {result: "done"} }, '*')
+            if(request.response.ParsedResults[0].ParsedText) {
+                textRef.current.value = request.response.ParsedResults[0].ParsedText
+                textRef.current.select()
+                document.execCommand("copy")
+                window.parent.postMessage({pluginMessage: {result: "done"} }, '*')
+            } else {
+                window.parent.postMessage({pluginMessage: {result: "notFound"} }, '*')
+            }
         }
     }
 

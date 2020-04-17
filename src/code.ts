@@ -65,6 +65,9 @@ figma.ui.onmessage = async (msg) => {
         figma.notify("Your API key is saved!")
       });
       break
+    case 'notFound':
+      figma.notify("No text found in image")
+      break
     case 'done':
       figma.notify("Copied to clipboard")
       break
