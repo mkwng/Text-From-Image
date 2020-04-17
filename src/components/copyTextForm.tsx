@@ -22,8 +22,15 @@ function CopyTextForm(props) {
 
     var request = new XMLHttpRequest()
     request.responseType = 'json'
+    let apiTimeout = setTimeout(() => {
+        window.parent.postMessage({pluginMessage: {
+            result: 'error',
+            msg: 'Server timed out. Try again later.'
+        }}, '*')
+    },10000)
     request.onreadystatechange = function() {
         if (this.status == 403) {
+            clearTimeout(apiTimeout)
             window.parent.postMessage({pluginMessage: {
                 result: '403',
                 msg: 'Your API key may be incorrect. Check the key and try again'
@@ -31,6 +38,7 @@ function CopyTextForm(props) {
             setIsError(true)
         }
         if (this.readyState == 4 && this.status == 200) {
+            clearTimeout(apiTimeout)
             if(request.response.ParsedResults[0].ParsedText) {
                 textRef.current.value = request.response.ParsedResults[0].ParsedText
                 textRef.current.select()

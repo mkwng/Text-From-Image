@@ -58,15 +58,16 @@ figma.ui.onmessage = async (msg) => {
   switch(msg.result) {
     case 'noKey':
     case '403':
-      figma.notify(msg.message)
+    case 'error':
+      figma.notify(msg.msg)
       break
     case 'setKey':
-      figma.clientStorage.setAsync('ocrapikey', msg.key).then( response => {
+      figma.clientStorage.setAsync('ocrapikey', msg.key).then( () => {
         figma.notify("Your API key is saved!")
       });
       break
     case 'notFound':
-      figma.notify("No text found in image")
+      figma.notify("No text found in selected image")
       break
     case 'done':
       figma.notify("Copied to clipboard")
